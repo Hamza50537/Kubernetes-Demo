@@ -21,7 +21,7 @@ pipeline {
 		stage('Build Image') {
             steps {
                 sh '''
-                echo "${env.TAG}"
+                echo "${BUILD_NUMBER}"
                 '''
             }
         }
