@@ -2,7 +2,7 @@ pipeline {
     agent any 
 	environment {
         APP_NAME = "home-task"
-		TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(15)
+		TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}"
 		}
     stages {
         stage('Gitlab Login') {
@@ -21,7 +21,7 @@ pipeline {
 		stage('Build Image') {
             steps {
                 sh '''
-                echo "${TAG}"
+                echo "${env.TAG}"
                 '''
             }
         }
