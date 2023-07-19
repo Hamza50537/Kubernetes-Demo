@@ -1,10 +1,17 @@
 pipeline {
     agent any 
     stages {
-        stage('Stage 1') {
+        stage('Gitlab Login') {
             steps {
-                echo 'Hello world!' 
-                sh 'python3 app.py'
+                withCredentials([
+						string(credentialsId: 'gitlab_user', variable: 'USR'),
+						string(credentialsId: 'gitlab_password	', variable: 'PW'),
+					]){
+						sh '''
+							docker login registry.gitlab.com -u ${USR} -p ${PW} 
+							echo "Login OK!"
+						'''
+					  }
             }
         }
     }
