@@ -21,6 +21,8 @@ pipeline {
 		stage('Build Image') {
             steps {
                 sh '''
+		docker build -t registry.gitlab.com/tasks6711629/task1/app:v${BUILD_NUMBER} .
+                docker push registry.gitlab.com/tasks6711629/task1/app:v${BUILD_NUMBER}
                 echo "${BUILD_NUMBER}"
                 '''
             }
