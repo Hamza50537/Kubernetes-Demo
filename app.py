@@ -1,14 +1,24 @@
-import datetime;
-import socket;
+import socket
+from flask import Flask
 
-while True:
-    # current_Time stores current time
-    current_Time = datetime.datetime.now()
-    print("current time:-", current_Time)
- 
-    # time_Stamp store timestamp of current time
-    time_Stamp = current_Time.timestamp()
-    print("timestamp:-", time_Stamp)
+app = Flask(__name__)
 
-    host_Name=socket.gethostname()
-    print("current host name is:-", host_Name )
+@app.route('/')
+def get_timestamp_and_hostname():
+    # Get the current timestamp
+    import datetime
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Get the hostname
+    hostname = socket.gethostname()
+
+    # Prepare the response
+    response = {
+        'timestamp': timestamp,
+        'hostname': hostname
+    }
+
+    return response
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8081)
